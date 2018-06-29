@@ -29,12 +29,20 @@ To manage Azure resources with Ansible, you need the following:
     - Install Ansible on [CentOS 7.4](ansible-install-configure.md#centos-74), [Ubuntu 16.04 LTS](ansible-install-configure.md#ubuntu-1604-lts), and [SLES 12 SP2](ansible-install-configure.md#sles-12-sp2)
 - Azure credentials, and Ansible configured to use them.
     - [Create Azure credentials and configure Ansible](ansible-install-configure.md#create-azure-credentials)
-- Azure CLI version 2.0.4 or later. Run `az --version` to find the version. 
-    - If you need to upgrade, see [Install Azure CLI 2.0]( /cli/azure/install-azure-cli). You can also use [Cloud Shell](/azure/cloud-shell/quickstart) from your browser.
 
+## Create resource group
+Let's look at each section of an Ansible playbook and create the individual Azure resources. For the complete playbook, see [this section of the article](#complete-ansible-playbook).
+
+Ansible needs a resource group to deploy all your resources into. The following section in an Ansible playbook creates a resource group named *myResourceGroup* in the *eastus* location:
+
+```yaml
+- name: Create resource group
+    azure_rm_resourcegroup:
+      name: myResourceGroup
+      location: eastus
+```
 
 ## Create virtual network
-Let's look at each section of an Ansible playbook and create the individual Azure resources. For the complete playbook, see [this section of the article](#complete-ansible-playbook).
 
 The following section in an Ansible playbook creates a virtual network named *myVnet* in the *10.0.0.0/16* address space:
 
@@ -133,6 +141,10 @@ To bring all these sections together, create an Ansible playbook named *azure_cr
   hosts: localhost
   connection: local
   tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: myResourceGroup
+      location: eastus
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: myResourceGroup
@@ -186,11 +198,6 @@ To bring all these sections together, create an Ansible playbook named *azure_cr
         version: latest
 ```
 
-Ansible needs a resource group to deploy all your resources into. Create a resource group with [az group create](/cli/azure/group#az-group-create). The following example creates a resource group named *myResourceGroup* in the *eastus* location:
-
-```azurecli
-az group create --name myResourceGroup --location eastus
-```
 
 To create the complete VM environment with Ansible, run the playbook as follows:
 
@@ -205,6 +212,9 @@ PLAY [Create Azure VM] ****************************************************
 
 TASK [Gathering Facts] ****************************************************
 ok: [localhost]
+
+TASK [Create resource group] *********************************************
+changed: [localhost]
 
 TASK [Create virtual network] *********************************************
 changed: [localhost]
@@ -225,7 +235,7 @@ TASK [Create VM] **********************************************************
 changed: [localhost]
 
 PLAY RECAP ****************************************************************
-localhost                  : ok=7    changed=6    unreachable=0    failed=0
+localhost                  : ok=8    changed=7    unreachable=0    failed=0
 ```
 
 ## Next steps
