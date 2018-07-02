@@ -90,7 +90,7 @@ localhost                  : ok=3    changed=2    unreachable=0    failed=0
 
 ## Scale an existed Azure Kubernetes Service instance
 
-We may want to scale our created instance by changing the count of nodes. The following playbook scales our instance from 5 nodes to 7. This can be easily done simply by changing *count* in *agent_pool_profiles*. Again, we are using the instance created above, so instance name and resource group are the same, enter your own *client_id* and *client_secret* in the *service_principal* part.
+We may want to scale our created instance by changing the count of nodes. The following playbook scales our instance from 5 nodes to 7. This can be easily done by changing *count* in *agent_pool_profiles*. Again, we are using the instance created above, so instance name and resource group are the same, enter your own *client_id* and *client_secret* in the *service_principal* part.
 ```yaml
 - name: Scale AKS instance
   hosts: localhost
