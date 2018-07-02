@@ -88,6 +88,51 @@ PLAY RECAP *********************************************************************
 localhost                  : ok=3    changed=2    unreachable=0    failed=0
 ```
 
+## Scale an existed Azure Kubernetes Service instance
+
+We may want to scale our created instance by changing the count of nodes. The following playbook scaled our instance from 5 nodes to 7. This can be easily done simply by changing *count* in *agent_pool_profiles*. Again, we are using the instance created above, so instance name and resource group are the same, enter your own *client_id* and *client_secret* in the *service_principal* part.
+```yaml
+- name: Scale AKS instance
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Scaling an existed AKS instance
+    azure_rm_aks:
+        name: acctestaks1
+        location: eastus
+        resource_group: akstest1
+        dns_prefix: akstest
+        linux_profile:
+          admin_username: azureuser
+          ssh_key: ssh-rsa AAAAB3NzaC1yc...
+        service_principal:
+          client_id: "your_client_id"
+          client_secret: "your_client_secret"
+        agent_pool_profiles:
+          - name: default
+            count: 7
+            vm_size: Standard_D2_v2
+```
+
+To scale the Azure Kubernetes Service instance with Ansible, run the playbook as follows:
+
+```bash
+ansible-playbook azure_configure_aks.yml
+```
+The output looks similar to the following example that shows the Azure Kubernetes Service instance has been successfully created:
+```bash
+PLAY [Scale AKS instance] ***************************************************************
+
+TASK [Gathering Facts] ******************************************************************
+ok: [localhost]
+
+TASK [Scaling an existed AKS instance] **************************************************
+changed: [localhost]
+
+PLAY RECAP ******************************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0
+```
+
 ## Next steps
 
 > [!div class="nextstepaction"] 
