@@ -32,7 +32,7 @@ Ansible allows you to automate the deployment and configuration of resources in 
 
 ## Create a managed Azure Kubernetes Service instance
 
-Ansible needs a resource group to deploy all your resources into. The first section in an Ansible playbook creates a resource group named *test* in the *eastus* location:
+Ansible needs a resource group to deploy all your resources into. The first section in an Ansible playbook creates a resource group named *akstest1* in the *eastus* location:
 
 The second section in the playbook creates a Azure Kubernetes Service instance named *acctestaks1* in the resource group we created above. Enter your own *client_id* and *client_secret* in the *service_principal* part:
 ```yaml
