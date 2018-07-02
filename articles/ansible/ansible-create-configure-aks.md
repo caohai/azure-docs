@@ -1,5 +1,5 @@
 ---
-title: Create AKS instance in Azure with Ansible
+title: Create and configure Azure Kubernetes Service instance with Ansible
 description: Learn how to use Ansible to create and manage an Azure Kubernetes Service instance in Azure
 ms.service: ansible
 keywords: ansible, azure, devops, bash, cloudshell, playbook, aks
@@ -10,9 +10,9 @@ ms.date: 06/29/2018
 ms.topic: article
 ---
 
-# Create AKS instance in Azure with Ansible
+# Create and configure Azure Kubernetes Service instance with Ansible
 
-Ansible allows you to automate the deployment and configuration of resources in your environment. You can use Ansible to manage your AKS(Azure Kubernetes Service) instances. This article shows you how to create an AKS instance with Ansible.
+Ansible allows you to automate the deployment and configuration of resources in your environment. You can use Ansible to manage your Azure Kubernetes Service instances. This article shows you how to create and configure an Azure Kubernetes Service instance with Ansible.
 
 ## Prerequisites
 
@@ -28,45 +28,13 @@ Ansible allows you to automate the deployment and configuration of resources in 
 - **Azure service principal**: 
   - Follow the directions in the section of the **Create the service principal** section in the article, [Create an Azure service principal with Azure CLI 2.0](/cli/azure/create-an-azure-service-principal-azure-cli?view=azure-cli-latest#create-the-service-principal). Take note of the values for the appId, displayName, password, and tenant.
 
-## Create resource group
-Let's look at each section of an Ansible playbook and create the individual Azure resources. For the complete playbook, see [this section of the article](#complete-ansible-playbook).
+**Note**: Ansible 2.6 is requried to run the following sample playbook for Azure Kubernetes Service. 
 
-Ansible needs a resource group to deploy all your resources into. The following section in an Ansible playbook creates a resource group named *akstest* in the *eastus* location:
+## Create a managed Azure Kubernetes Service instance
 
-```yaml
-- name: Create resource group
-    azure_rm_resourcegroup:
-        name: akstest1
-        location: eastus
-```
+Ansible needs a resource group to deploy all your resources into. The first section in an Ansible playbook creates a resource group named *test* in the *eastus* location:
 
-## Create a managed AKS instance
-The following section in an Ansible playbook creates a AKS instance named *acctestaks1* in the resource group we created above. Enter your own *client_id* and *client_secret* in the *service_principal* part:
-```yaml
-- name: Create a managed Azure Container Services (AKS) instance
-    azure_rm_aks:
-        name: acctestaks1
-        location: eastus
-        resource_group: akstest1
-        dns_prefix: akstest
-        linux_profile:
-          admin_username: azureuser
-          ssh_key: ssh-rsa AAAAB3NzaC1yc...
-        service_principal:
-          client_id: "your_client_id"
-          client_secret: "your_client_secret"
-        agent_pool_profiles:
-          - name: default
-            count: 5
-            vm_size: Standard_D2_v2
-        tags:
-          Environment: Production
-```
-
-
-## Complete Ansible playbook
-To bring all these sections together, create an Ansible playbook named *azure_create_aks.yml* and paste the following contents. Enter your own *client_id* and *client_secret* in the *service_principal* part:
-
+The second section in the playbook creates a Azure Kubernetes Service instance named *acctestaks1* in the resource group we created above. Enter your own *client_id* and *client_secret* in the *service_principal* part:
 ```yaml
 - name: Create AKS instance
   hosts: localhost
@@ -96,13 +64,13 @@ To bring all these sections together, create an Ansible playbook named *azure_cr
           Environment: Production
 ```
 
-To create the AKS instance with Ansible, run the playbook as follows:
+To create the Azure Kubernetes Service instance with Ansible, run the playbook as follows:
 
 ```bash
 ansible-playbook azure_create_aks.yml
 ```
 
-The output looks similar to the following example that shows the AKS instance has been successfully created:
+The output looks similar to the following example that shows the Azure Kubernetes Service instance has been successfully created:
 
 ```bash
 PLAY [Create AKS instance] ****************************************************************************************
