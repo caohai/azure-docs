@@ -64,7 +64,7 @@ The second section in the playbook creates a Azure Kubernetes Service instance n
           Environment: Production
 ```
 
-To create the Azure Kubernetes Service instance with Ansible, save abvoe playbook as *azure_create_aks.yml* run the playbook as follows:
+To create the Azure Kubernetes Service instance with Ansible, save abvoe playbook as *azure_create_aks.yml*, run the playbook as follows:
 
 ```bash
 ansible-playbook azure_create_aks.yml
