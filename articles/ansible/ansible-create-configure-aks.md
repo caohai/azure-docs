@@ -64,7 +64,7 @@ The second section in the playbook creates a Azure Kubernetes Service instance n
           Environment: Production
 ```
 
-To create the Azure Kubernetes Service instance with Ansible, run the playbook as follows:
+To create the Azure Kubernetes Service instance with Ansible, save abvoe playbook as *azure_create_aks.yml* run the playbook as follows:
 
 ```bash
 ansible-playbook azure_create_aks.yml
@@ -114,7 +114,7 @@ We may want to scale our created instance by changing the count of nodes. The fo
             vm_size: Standard_D2_v2
 ```
 
-To scale the Azure Kubernetes Service instance with Ansible, run the playbook as follows:
+To scale the Azure Kubernetes Service instance with Ansible, save abvoe playbook as *azure_configure_aks.yml*, run the playbook as follows:
 
 ```bash
 ansible-playbook azure_configure_aks.yml
