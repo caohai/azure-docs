@@ -260,16 +260,16 @@ ansible-playbook azure_vm_stop.yml
 The output looks similar to the following example that shows the VM has been successfully stopped:
 
 ```bash
-PLAY [Stop Azure VM] ***********************************************************************************************************
+PLAY [Stop Azure VM] ********************************************************
 
-TASK [Gathering Facts] *********************************************************************************************************
+TASK [Gathering Facts] ******************************************************
 ok: [localhost]
 
-TASK [Deallocate the Virtual Machine] ******************************************************************************************
+TASK [Deallocate the Virtual Machine] ***************************************
 changed: [localhost]
 
-PLAY RECAP *********************************************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0```
+PLAY RECAP ******************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0
 ```
 
 ## Start the stopped virtual machine
@@ -293,16 +293,16 @@ ansible-playbook azure_vm_start.yml
 The output looks similar to the following example that shows the VM has been successfully started:
 
 ```bash
-PLAY [Stop Azure VM] ***********************************************************************************************************
+PLAY [Stop Azure VM] ********************************************************
 
-TASK [Gathering Facts] *********************************************************************************************************
+TASK [Gathering Facts] ******************************************************
 ok: [localhost]
 
-TASK [Start the Virtual Machine] ******************************************************************************************
+TASK [Start the Virtual Machine] ********************************************
 changed: [localhost]
 
-PLAY RECAP *********************************************************************************************************************
-localhost                  : ok=2    changed=1    unreachable=0    failed=0```
+PLAY RECAP ******************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0
 ```
 
 ## Next steps
