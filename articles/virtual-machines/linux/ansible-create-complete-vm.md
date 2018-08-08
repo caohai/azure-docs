@@ -238,5 +238,72 @@ PLAY RECAP ****************************************************************
 localhost                  : ok=8    changed=7    unreachable=0    failed=0
 ```
 
+## Stop created virtual machine
+Ansible allows you to stop the created running virtual machine. The following playbook deallocates(stops) a running virtual machine.
+```yaml
+- name: Stop Azure VM
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Deallocate the virtual machine
+    azure_rm_virtualmachine:
+        resource_group: myResourceGroup
+        name: myVM
+        allocated: no 
+```
+To stop the running virtual machine with Ansible, run the playbook as follows:
+
+```bash
+ansible-playbook azure_vm_stop.yml
+```
+
+The output looks similar to the following example that shows the VM has been successfully stopped:
+
+```bash
+PLAY [Stop Azure VM] ***********************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************
+ok: [localhost]
+
+TASK [Deallocate the Virtual Machine] ******************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0```
+```
+
+## Start the stopped virtual machine
+Ansible allows you to start the deallocated(stopped) virtual machine. The following playbook starts a stopped virtual machine.
+```yaml
+- name: Start Azure VM
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Start the virtual machine
+    azure_rm_virtualmachine:
+        resource_group: myResourceGroup
+        name: myVM
+```
+To start the stopped virtual machine with Ansible, run the playbook as follows:
+
+```bash
+ansible-playbook azure_vm_start.yml
+```
+
+The output looks similar to the following example that shows the VM has been successfully started:
+
+```bash
+PLAY [Stop Azure VM] ***********************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************
+ok: [localhost]
+
+TASK [Start the Virtual Machine] ******************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************************************************************
+localhost                  : ok=2    changed=1    unreachable=0    failed=0```
+```
+
 ## Next steps
 This example creates a complete VM environment including the required virtual networking resources. For a more direct example to create a VM into existing network resources with default options, see [Create a VM](ansible-create-vm.md).
